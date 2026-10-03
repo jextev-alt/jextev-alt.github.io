@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jexter Mollaneda Villamor — Computer Science Student | Devfolio</title>
+  <style>
+    /* Theme Tokens - Soft Pink Palette */
+    :root {
+      --bg-body: #0c0d14;
+      --bg-surface: #12141f;
+      --bg-surface-elevated: #1a1c2b;
+      --bg-card: rgba(18, 20, 31, 0.78);
+      --bg-glass: rgba(12, 13, 20, 0.85);
+      --bg-badge: rgba(244, 114, 182, 0.15);
+      --text-primary: #fdf2f8;
+      --text-secondary: #9ca3af;
+      --text-muted: #6b7280;
+      --text-accent: #f472b6;
+      --accent-primary: #f472b6;       /* Soft Pink */
+      --accent-primary-hover: #ec4899; /* Rose */
+      --accent-secondary: #fbcfe8;     /* Soft Blush */
+      --accent-emerald: #10b981;
+      --border-subtle: rgba(255, 255, 255, 0.08);
+      --border-hover: rgba(244, 114, 182, 0.45);
+      --shadow-lg: 0 10px 25px -5px rgba(0, 0, 0, 0.4);
+      --shadow-glow: 0 0 25px rgba(244, 114, 182, 0.28);
+      --radius-sm: 6px;
+      --radius-md: 10px;
+      --radius-lg: 16px;
+      --radius-xl: 24px;
+      --radius-full: 9999px;
+      --font-sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      --font-mono: ui-monospace, Menlo, Monaco, Consolas, monospace;
+    }
+    [data-theme="light"] {
+      --bg-body: #fff5f7;
+      --bg-surface: #ffffff;
+      --bg-surface-elevated: #fdf2f4;
+      --bg-card: rgba(255, 255, 255, 0.92);
+      --bg-glass: rgba(255, 245, 247, 0.88);
+      --bg-badge: rgba(236, 72, 153, 0.1);
+      --text-primary: #1f1216;
+      --text-secondary: #57464c;
+      --text-muted: #9e8a91;
+      --text-accent: #db2777;
+      --accent-primary: #db2777;
+      --accent-primary-hover: #be185d;
+      --accent-secondary: #f472b6;
+      --border-subtle: rgba(236, 72, 153, 0.12);
+      --border-hover: rgba(236, 72, 153, 0.4);
+      --shadow-lg: 0 10px 15px -3px rgba(236, 72, 153, 0.1);
+      --shadow-glow: 0 0 20px rgba(236, 72, 153, 0.2);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; font-size: 16px; }
+    body { font-family: var(--font-sans); background: var(--bg-body); color: var(--text-primary); line-height: 1.6; min-height: 100vh; overflow-x: hidden; transition: background 0.25s, color 0.25s; }
+    a { color: inherit; text-decoration: none; }
+    button { font-family: inherit; cursor: pointer; border: none; background: none; }
+    .container { width: 100%; max-width: 1200px; margin: 0 auto; padding: 0 1.5rem; }
+    section { padding: 5rem 0; position: relative; }
+
+    /* Navigation */
+    .site-header { position: sticky; top: 0; z-index: 1000; background: var(--bg-glass); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border-bottom: 1px solid var(--border-subtle); }
+    .navbar { display: flex; align-items: center; justify-content: space-between; height: 4.25rem; }
+    .brand-logo { display: flex; align-items: center; gap: 0.6rem; font-weight: 700; font-size: 1.15rem; color: var(--text-primary); }
+    .brand-icon { width: 34px; height: 34px; border-radius: var(--radius-md); background: linear-gradient(135deg, var(--accent-primary), #ec4899); display: flex; align-items: center; justify-content: center; color: #fff; }
+    .nav-links { display: flex; align-items: center; gap: 1.75rem; list-style: none; }
+    .nav-link { font-size: 0.95rem; font-weight: 500; color: var(--text-secondary); transition: color 0.15s; }
+    .nav-link:hover { color: var(--text-primary); }
+    .nav-actions { display: flex; align-items: center; gap: 0.75rem; }
+    .btn-icon { width: 40px; height: 40px; border-radius: var(--radius-md); border: 1px solid var(--border-subtle); background: var(--bg-surface); color: var(--text-secondary); display: flex; align-items: center; justify-content: center; transition: 0.15s; }
+    .btn-icon:hover { color: var(--text-primary); border-color: var(--border-hover); background: var(--bg-surface-elevated); }
+
+    /* Buttons */
+    .btn { display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; padding: 0.65rem 1.35rem; font-size: 0.95rem; font-weight: 600; border-radius: var(--radius-md); transition: 0.2s; cursor: pointer; text-decoration: none; }
+    .btn-sm { padding: 0.45rem 0.9rem; font-size: 0.85rem; }
+    .btn-primary { background: var(--accent-primary); color: #fff; box-shadow: 0 4px 14px rgba(244, 114, 182, 0.35); }
+    .btn-primary:hover { background: var(--accent-primary-hover); transform: translateY(-1px); }
+    .btn-outline { border: 1px solid var(--border-subtle); background: var(--bg-surface); color: var(--text-primary); }
+    .btn-outline:hover { border-color: var(--accent-primary); transform: translateY(-1px); }
+
+    /* Hero */
+    .hero-section { padding-top: 5rem; padding-bottom: 6rem; }
+    .hero-content { max-width: 820px; }
+    .status-badge { display: inline-flex; align-items: center; gap: 0.55rem; padding: 0.35rem 0.85rem; font-size: 0.82rem; font-weight: 600; border-radius: var(--radius-full); background: var(--bg-badge); border: 1px solid rgba(244, 114, 182, 0.25); color: var(--text-accent); margin-bottom: 1.5rem; }
+    .status-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent-emerald); box-shadow: 0 0 10px var(--accent-emerald); }
+    .hero-title { font-size: clamp(2.3rem, 5vw, 3.6rem); font-weight: 800; line-height: 1.15; letter-spacing: -0.03em; margin-bottom: 0.75rem; }
+    .gradient-text { background: linear-gradient(135deg, var(--accent-primary), #ec4899); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .hero-subtitle { font-size: 1.15rem; color: var(--text-secondary); line-height: 1.7; margin-bottom: 2.25rem; }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 1rem; margin-bottom: 3.5rem; }
+    .hero-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 1.5rem; width: 100%; padding-top: 2rem; border-top: 1px solid var(--border-subtle); }
+    .stat-value { font-size: 1.85rem; font-weight: 700; font-family: var(--font-mono); }
+    .stat-label { font-size: 0.82rem; color: var(--text-muted); text-transform: uppercase; font-weight: 600; }
+
+    /* Section Headers */
+    .section-header { margin-bottom: 3rem; max-width: 700px; }
+    .section-tag { font-size: 0.82rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent-primary); margin-bottom: 0.5rem; display: block; }
+    .section-title { font-size: 2.2rem; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 0.75rem; }
+    .section-desc { font-size: 1.05rem; color: var(--text-secondary); }
+
+    /* Spotlight Card */
+    .spotlight-card { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 2.5rem; padding: 2.5rem; border-radius: var(--radius-xl); background: var(--bg-card); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 1px solid var(--border-subtle); box-shadow: var(--shadow-lg); }
+    .badge-flagship { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; padding: 0.3rem 0.75rem; border-radius: var(--radius-full); background: rgba(244, 114, 182, 0.15); color: var(--accent-primary); border: 1px solid rgba(244, 114, 182, 0.3); }
+    .spotlight-title { font-size: 1.85rem; font-weight: 700; margin: 1rem 0 0.75rem; }
+    .spotlight-desc { color: var(--text-secondary); margin-bottom: 1.5rem; font-size: 1rem; }
+    .spotlight-highlights { list-style: none; display: flex; flex-direction: column; gap: 0.65rem; margin-bottom: 1.75rem; }
+    .spotlight-highlights li { display: flex; align-items: flex-start; gap: 0.6rem; color: var(--text-secondary); font-size: 0.92rem; }
+    .tags-list { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 2rem; }
+    .tag-pill { font-size: 0.78rem; font-weight: 600; padding: 0.25rem 0.65rem; border-radius: var(--radius-sm); background: var(--bg-surface-elevated); border: 1px solid var(--border-subtle); color: var(--text-secondary); }
+    .spotlight-preview { background: var(--bg-surface); border-radius: var(--radius-lg); border: 1px solid var(--border-subtle); padding: 1.5rem; display: flex; flex-direction: column; justify-content: center; }
+    .terminal-body { font-family: var(--font-mono); font-size: 0.85rem; color: var(--text-secondary); line-height: 1.65; }
+    .terminal-metrics-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.75rem; margin-top: 1.25rem; padding-top: 1rem; border-top: 1px dashed var(--border-subtle); }
+    .metric-box { background: var(--bg-surface-elevated); padding: 0.75rem; border-radius: var(--radius-sm); text-align: center; }
+    .metric-box-val { font-size: 1.15rem; font-weight: 700; color: var(--accent-primary); }
+    .metric-box-lbl { font-size: 0.72rem; color: var(--text-muted); text-transform: uppercase; }
+
+    /* Projects Grid */
+    .filter-tabs { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 2.5rem; }
+    .filter-btn { padding: 0.5rem 1.15rem; font-size: 0.88rem; font-weight: 600; border-radius: var(--radius-full); border: 1px solid var(--border-subtle); background: var(--bg-surface); color: var(--text-secondary); transition: 0.2s; }
+    .filter-btn:hover { color: var(--text-primary); border-color: var(--border-hover); }
+    .filter-btn.active { background: var(--accent-primary); border-color: var(--accent-primary); color: #fff; }
+    .projects-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(330px, 1fr)); gap: 1.75rem; }
+    .project-card { display: flex; flex-direction: column; justify-content: space-between; border-radius: var(--radius-lg); background: var(--bg-card); border: 1px solid var(--border-subtle); padding: 1.75rem; transition: transform 0.2s, border-color 0.2s; }
+    .project-card:hover { transform: translateY(-4px); border-color: var(--border-hover); box-shadow: var(--shadow-lg); }
+    .card-meta { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem; }
+    .card-badge { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; padding: 0.2rem 0.6rem; border-radius: var(--radius-full); background: var(--bg-badge); color: var(--text-accent); }
+    .card-title { font-size: 1.25rem; font-weight: 700; margin-bottom: 0.5rem; }
+    .card-desc { font-size: 0.92rem; color: var(--text-secondary); margin-bottom: 1.25rem; line-height: 1.6; }
+    .card-actions { display: flex; align-items: center; justify-content: space-between; padding-top: 1rem; border-top: 1px solid var(--border-subtle); }
+
+    /* Skills Grid */
+    .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; }
+    .skill-card { padding: 1.75rem; border-radius: var(--radius-lg); background: var(--bg-card); border: 1px solid var(--border-subtle); }
+    .skill-title { font-size: 1.15rem; font-weight: 700; margin-bottom: 1rem; color: var(--accent-primary); }
+    .skill-pill { display: inline-block; font-size: 0.82rem; font-weight: 600; padding: 0.35rem 0.75rem; border-radius: var(--radius-full); background: var(--bg-surface-elevated); border: 1px solid var(--border-subtle); margin: 0.25rem; }
+
+    /* Modal */
+    .modal-overlay { position: fixed; inset: 0; z-index: 2000; background: rgba(0,0,0,0.75); backdrop-filter: blur(6px); display: none; align-items: center; justify-content: center; padding: 1.5rem; }
+    .modal-overlay.active { display: flex; }
+    .modal-dialog { width: 100%; max-width: 650px; background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-xl); padding: 2.25rem; position: relative; box-shadow: var(--shadow-lg); }
+    .modal-close-btn { position: absolute; top: 1.25rem; right: 1.25rem; font-size: 1.2rem; color: var(--text-secondary); width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; border-radius: 6px; border: 1px solid var(--border-subtle); }
+
+    /* Toast */
+    .toast { position: fixed; bottom: 2rem; right: 2rem; z-index: 3000; padding: 0.85rem 1.35rem; border-radius: var(--radius-md); background: var(--bg-surface-elevated); border: 1px solid var(--border-hover); color: var(--text-primary); font-size: 0.9rem; font-weight: 600; display: none; }
+    .toast.active { display: block; animation: fadeIn 0.2s ease; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+    .hero-layout { display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 3.5rem; align-items: center; }
+    .profile-card-wrapper { position: relative; display: flex; justify-content: center; align-items: center; }
+    .profile-glow-ring { position: absolute; inset: -15px; border-radius: var(--radius-xl); background: linear-gradient(135deg, rgba(244, 114, 182, 0.4), rgba(236, 72, 153, 0.15)); filter: blur(25px); z-index: 0; opacity: 0.85; }
+    .profile-card { position: relative; z-index: 1; background: var(--bg-surface); border: 2px solid var(--border-hover); border-radius: var(--radius-xl); overflow: hidden; box-shadow: var(--shadow-lg), var(--shadow-glow); padding: 0.65rem; max-width: 320px; width: 100%; }
+    .profile-img { width: 100%; aspect-ratio: 3 / 4; object-fit: cover; object-position: center top; border-radius: calc(var(--radius-xl) - 6px); display: block; }
+    .profile-card-caption { padding: 0.85rem 0.5rem 0.25rem; text-align: center; }
+    .profile-card-name { font-size: 1.05rem; font-weight: 700; color: var(--text-primary); }
+    .profile-card-role { font-size: 0.82rem; color: var(--accent-primary); font-weight: 600; }
+
+    @media (max-width: 900px) {
+      .hero-layout { grid-template-columns: 1fr; gap: 2.5rem; }
+      .profile-card-wrapper { order: -1; }
+      .spotlight-card { grid-template-columns: 1fr; }
+      .nav-links { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <header class="site-header">
+    <div class="container navbar">
+      <a href="#home" class="brand-logo">
+        <div class="brand-icon">
+          JV
+        </div>
+        <span>Dev<span>folio</span></span>
+      </a>
+      <nav class="nav-links">
+        <a href="#about" class="nav-link">About</a>
+        <a href="#spotlight" class="nav-link">Featured</a>
+        <a href="#projects" class="nav-link">Projects</a>
+        <a href="#skills" class="nav-link">Skills</a>
+        <a href="#contact" class="nav-link">Contact</a>
+      </nav>
+      <div class="nav-actions">
+        <button id="themeToggleBtn" class="btn-icon" title="Toggle Theme">🌓</button>
+        <a href="#contact" class="btn btn-primary btn-sm">Let's Connect</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <main>
+    <section id="home" class="hero-section">
+      <div class="container hero-layout">
+        <div class="hero-content">
+          <div class="status-badge">
+            <span class="status-dot"></span>
+            <span>🎓 Computer Science Student • EARIST Cavite Campus</span>
+          </div>
+          <h1 class="hero-title">
+            Hi, I'm <span class="gradient-text">Jexter Mollaneda Villamor</span>
+          </h1>
+          <div style="font-size: 1.25rem; font-weight: 700; color: var(--accent-primary); margin-bottom: 1rem;">
+            Computer Science Student & Aspiring Software Developer
+          </div>
+          <p class="hero-subtitle">
+            Computer Science student passionate about building useful, creative, and user-friendly digital experiences. Always learning, always building, and exploring new technologies.
+          </p>
+          <div class="hero-actions">
+            <a href="#spotlight" class="btn btn-primary">Explore Featured Work ↓</a>
+            <a href="#projects" class="btn btn-outline">Browse All Projects</a>
+            <a href="https://github.com/jextev-alt" target="_blank" rel="noopener noreferrer" class="btn btn-outline">GitHub: @jextev-alt ↗</a>
+          </div>
+          <div class="hero-stats">
+            <div><div class="stat-value">EARIST</div><div class="stat-label">Cavite Campus</div></div>
+            <div><div class="stat-value">4+</div><div class="stat-label">Projects Built</div></div>
+            <div><div class="stat-value">Java & JS</div><div class="stat-label">Languages</div></div>
+            <div><div class="stat-value">100%</div><div class="stat-label">Dedication</div></div>
+          </div>
+        </div>
+
+        <!-- Profile Headshot Card -->
+        <div class="profile-card-wrapper">
+          <div class="profile-glow-ring"></div>
+          <div class="profile-card">
+            <div style="width: 100%; aspect-ratio: 3 / 4; background: linear-gradient(135deg, #f472b6, #ec4899); border-radius: calc(var(--radius-xl) - 6px); display: flex; align-items: center; justify-content: center; color: #fff; font-size: 3rem; font-weight: 700;">
+              JV
+            </div>
+            <div class="profile-card-caption">
+              <div class="profile-card-name">Jexter M. Villamor</div>
+              <div class="profile-card-role">BS Computer Science • EARIST Cavite</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Featured Spotlight: EARIST Visitor System -->
+    <section id="spotlight">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">Featured Campus Project</span>
+          <h2 class="section-title">EARIST Cavite Visitor Monitoring System</h2>
+          <p class="section-desc">Digital visitor check-in, purpose tracking, and campus security logbook.</p>
+        </div>
+        <div class="spotlight-card">
+          <div>
+            <span class="badge-flagship">Campus System</span>
+            <h3 class="spotlight-title">Campus Visitor Logging & Audit Platform</h3>
+            <p class="spotlight-desc">Created specifically for EARIST Cavite Campus to replace manual paper logs with an instant digital check-in system, verifying visitor identities and entry purpose.</p>
+            <ul class="spotlight-highlights">
+              <li>✔ Streamlined visitor registration with automated time-in and time-out stamps</li>
+              <li>✔ Searchable campus visitor database for security guards and administration</li>
+              <li>✔ Generates clear visitor audit reports to enhance campus safety</li>
+            </ul>
+            <div class="tags-list">
+              <span class="tag-pill">Java</span>
+              <span class="tag-pill">Database</span>
+              <span class="tag-pill">Campus Security</span>
+              <span class="tag-pill">EARIST Cavite</span>
+            </div>
+            <button class="btn btn-primary" onclick="openModal('earist-visitor-system')">View Project Specifications</button>
+          </div>
+          <div class="spotlight-preview">
+            <div class="terminal-body">
+              <p style="color: var(--accent-primary);">$ earist.system --verify</p>
+              <p>[CAMPUS] EARIST Cavite Campus Gateway</p>
+              <p>[DATABASE] Connected to Visitor Log Store</p>
+              <p>[ENTRY LOG] Visitor: Juan Dela Cruz (Purpose: Registrar)</p>
+              <p>[TIME-IN] 08:30:15 AM • Status: Verified</p>
+              <p style="color: var(--accent-emerald);">[SYSTEM] Paperless Campus Monitoring: OK</p>
+            </div>
+            <div class="terminal-metrics-grid">
+              <div class="metric-box"><div class="metric-box-val">Digital</div><div class="metric-box-lbl">Logs</div></div>
+              <div class="metric-box"><div class="metric-box-val">Instant</div><div class="metric-box-lbl">Search</div></div>
+              <div class="metric-box"><div class="metric-box-val">Safe</div><div class="metric-box-lbl">Campus</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Projects Grid -->
+    <section id="projects">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">Portfolio Showcase</span>
+          <h2 class="section-title">Projects & Systems</h2>
+        </div>
+        <div class="filter-tabs">
+          <button class="filter-btn active" data-cat="all">All Projects</button>
+          <button class="filter-btn" data-cat="systems">Campus Systems</button>
+          <button class="filter-btn" data-cat="web">Web Platforms</button>
+          <button class="filter-btn" data-cat="tools">Health & Tools</button>
+        </div>
+        <div class="projects-grid" id="grid"></div>
+      </div>
+    </section>
+
+    <!-- Skills -->
+    <section id="skills">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">Competencies</span>
+          <h2 class="section-title">Skills & Technologies</h2>
+        </div>
+        <div class="skills-grid">
+          <div class="skill-card">
+            <h3 class="skill-title">Core Languages</h3>
+            <span class="skill-pill">Java</span>
+            <span class="skill-pill">JavaScript (ES6+)</span>
+            <span class="skill-pill">HTML5</span>
+            <span class="skill-pill">CSS3</span>
+            <span class="skill-pill">SQL</span>
+          </div>
+          <div class="skill-card">
+            <h3 class="skill-title">Web & Interface</h3>
+            <span class="skill-pill">Responsive Design</span>
+            <span class="skill-pill">Mobile-First UI</span>
+            <span class="skill-pill">DOM Manipulation</span>
+            <span class="skill-pill">REST APIs</span>
+          </div>
+          <div class="skill-card">
+            <h3 class="skill-title">Tools & Version Control</h3>
+            <span class="skill-pill">Git</span>
+            <span class="skill-pill">GitHub (@jextev-alt)</span>
+            <span class="skill-pill">VS Code</span>
+            <span class="skill-pill">Apache NetBeans</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">Get In Touch</span>
+          <h2 class="section-title">Let's Connect</h2>
+        </div>
+        <div style="background: var(--bg-card); padding: 2rem; border-radius: var(--radius-xl); border: 1px solid var(--border-subtle); max-width: 650px;">
+          <p style="margin-bottom: 0.75rem; color: var(--text-secondary);">Direct Email: <strong style="color: var(--accent-primary);" id="emailStr">jextev@gmail.com</strong></p>
+          <p style="margin-bottom: 0.75rem; color: var(--text-secondary);">GitHub: <a href="https://github.com/jextev-alt" target="_blank" style="color: var(--accent-primary);"><strong>github.com/jextev-alt</strong></a></p>
+          <p style="margin-bottom: 0.75rem; color: var(--text-secondary);">Facebook: <strong style="color: var(--text-primary);">Jexter Villamor</strong></p>
+          <p style="margin-bottom: 1.5rem; color: var(--text-secondary);">Instagram: <a href="https://instagram.com/jxxtrrr" target="_blank" style="color: var(--accent-primary);"><strong>@jxxtrrr</strong></a></p>
+          <button class="btn btn-primary btn-sm" onclick="copyEmail()">Copy Email Address</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Modal -->
+  <div id="modalOverlay" class="modal-overlay">
+    <div class="modal-dialog">
+      <button class="modal-close-btn" onclick="closeModal()">✕</button>
+      <div id="modalBody"></div>
+    </div>
+  </div>
+
+  <div id="toast" class="toast">Action completed!</div>
+
+  <script>
+    const projects = [
+      { 
+        id: "devfolio", 
+        title: "Devfolio — Personal Portfolio", 
+        cat: "web", 
+        desc: "A personal portfolio website that showcases my skills, projects, and journey as a Computer Science student at EARIST Cavite.", 
+        full: "Devfolio highlights the things I've built, the technologies I'm learning, and my interests in software development. Built with modern HTML5, CSS3, JavaScript, and Java server integration.", 
+        tags: ["HTML", "CSS", "JavaScript", "Java", "Git", "GitHub"] 
+      },
+      { 
+        id: "earist-visitor-system", 
+        title: "EARIST Cavite Visitor Monitoring System", 
+        cat: "systems", 
+        desc: "Digital visitor login and campus monitoring system engineered for EARIST Cavite Campus security and administration.", 
+        full: "Replaces traditional paper logbooks with a digital visitor check-in, tracking entry purpose, timestamps, and providing searchable audit records for campus safety.", 
+        tags: ["Java", "Database", "Security", "EARIST Cavite"] 
+      },
+      { 
+        id: "petcare", 
+        title: "PetCare — Pet Adoption Platform", 
+        cat: "web", 
+        desc: "An animal adoption portal connecting rescue animals with loving families, featuring pet profiles and shelter listings.", 
+        full: "PetCare makes pet adoption accessible and caring. Prospective adopters can browse pet medical history, vaccination records, and send adoption inquiries.", 
+        tags: ["HTML", "CSS", "JavaScript", "Adoption Portal"] 
+      },
+      { 
+        id: "dietary-system", 
+        title: "Dietary & Health Tracking System", 
+        cat: "tools", 
+        desc: "A personal health and nutritional intake tracker helping individuals monitor calories, meals, and daily wellness goals.", 
+        full: "Helps users understand their nutritional habits by logging daily food intake, calculating calories, and tracking personal wellness milestones.", 
+        tags: ["JavaScript", "HTML/CSS", "Nutrition Tracking"] 
+      }
+    ];
+
+    function renderGrid(filter = "all") {
+      const grid = document.getElementById("grid");
+      grid.innerHTML = "";
+      const list = filter === "all" ? projects : projects.filter(p => p.cat === filter);
+      list.forEach(p => {
+        const div = document.createElement("div");
+        div.className = "project-card";
+        div.innerHTML = `
+          <div>
+            <div class="card-meta"><span class="card-badge">${p.cat.toUpperCase()}</span></div>
+            <h3 class="card-title">${p.title}</h3>
+            <p class="card-desc">${p.desc}</p>
+          </div>
+          <div class="card-actions">
+            <button class="btn btn-primary btn-sm" onclick="openModal('${p.id}')">View Details</button>
+            <div class="tags-list" style="margin: 0;">${p.tags.map(t => `<span class="tag-pill">${t}</span>`).join('')}</div>
+          </div>
+        `;
+        grid.appendChild(div);
+      });
+    }
+
+    document.querySelectorAll(".filter-btn").forEach(btn => {
+      btn.addEventListener("click", () => {
+        document.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+        renderGrid(btn.getAttribute("data-cat"));
+      });
+    });
+
+    function openModal(id) {
+      const p = projects.find(x => x.id === id);
+      if (!p) return;
+      document.getElementById("modalBody").innerHTML = `
+        <span class="card-badge">${p.cat.toUpperCase()}</span>
+        <h2 style="font-size: 1.6rem; margin: 0.5rem 0 1rem; color: var(--accent-primary);">${p.title}</h2>
+        <p style="color: var(--text-secondary); line-height: 1.7; margin-bottom: 1.5rem;">${p.full}</p>
+        <div class="tags-list">${p.tags.map(t => `<span class="tag-pill">${t}</span>`).join('')}</div>
+        <button class="btn btn-outline btn-sm" onclick="closeModal()">Close</button>
+      `;
+      document.getElementById("modalOverlay").classList.add("active");
+    }
+
+    function closeModal() {
+      document.getElementById("modalOverlay").classList.remove("active");
+    }
+
+    function copyEmail() {
+      const email = document.getElementById("emailStr").innerText;
+      navigator.clipboard.writeText(email).then(() => {
+        showToast("Email copied to clipboard!");
+      });
+    }
+
+    function showToast(msg) {
+      const t = document.getElementById("toast");
+      t.innerText = msg;
+      t.classList.add("active");
+      setTimeout(() => t.classList.remove("active"), 2500);
+    }
+
+    // Theme toggle
+    document.getElementById("themeToggleBtn").addEventListener("click", () => {
+      const curr = document.documentElement.getAttribute("data-theme");
+      const next = curr === "dark" ? "light" : "dark";
+      document.documentElement.setAttribute("data-theme", next);
+      showToast(`Switched to ${next} mode`);
+    });
+
+    renderGrid();
+  </script>
+</body>
+</html>
